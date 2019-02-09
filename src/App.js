@@ -1,28 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import SimpleExample from './SimpleExample';
+import { fetchSchools, addSchool, login, fetchGeo } from './actions';
+import { connect } from 'react-redux';
+import AddSchool from './AddSchool';
+import LoginForm from './LoginForm'
+
+
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.fetchSchools();     
+  }
+  
+  // componentWillReceiveProps(nextProps){
+  //   if(JSON.stringify(this.props.schools) !== JSON.stringify(nextProps.schools)){
+  //     this.props.fetchSchools();
+  //   }    
+  // }
+  
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <LoginForm {...this.props} />
+        <SimpleExample {...this.props} />     
+        <AddSchool {...this.props} /> 
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    schools: state.schools,
+    isFetching: state.isFetching,
+    error: state.error,  
+    schoolAdded:state.schoolAdded  
+  };
+};
+
+export default connect(mapStateToProps, { fetchSchools, addSchool, login, fetchGeo })(App);
