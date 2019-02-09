@@ -81,23 +81,26 @@ export const login = (loginInfo) => dispatch => {
         .then(res => {        
             localStorage.setItem('jwt', res.data.token);
             dispatch({type: LOGGED_IN, payload: res.data})
-            Axios
-                .get(`${url}api/users/${res.data.id}`)
-            .then(res => {
-                dispatch({type: FETCHED_USER, payload: res.data})
-            })
-            .catch(err => console.error(err));
         })
         .catch(err => console.error(err));  
-    
 }
 
-export const fetchGeo = (address) => dispatch => {
-    dispatch({type: FETCHING_GEO});
+export const register = (loginInfo) => dispatch => {
+    dispatch({type: LOGGING_IN});
+    Axios
+        .post(`${url}api/register/`, loginInfo)
+        .then(res => {        
+            localStorage.setItem('jwt', res.data.token);
+            dispatch({type: LOGGED_IN, payload: res.data})
+        })
+        .catch(err => console.error(err));  
+}
+
+export const fetchGeo = (address) => dispatch => {    
     Axios
         .get(`http://open.mapquestapi.com/geocoding/v1/address?key=BXePamQFbEaWWQEx1Dn6eANoiTPAzVyI&location=${address.address}, ${address.city} ${address.state}`)
         .then(res => {
-            dispatch({type: FETCHED_GEO, payload: res.data});
+            dispatch({payload: res.data});
         })
         .catch(err => console.error(err));
 }

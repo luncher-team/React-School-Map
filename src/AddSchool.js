@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
-import { Form, Input, Button, FormGroup, Modal } from 'reactstrap';
+import { Form, Input, Button, FormGroup } from 'reactstrap';
 
 export default class AddSchool extends Component {
   constructor(props) {

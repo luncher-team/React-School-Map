@@ -7,6 +7,7 @@ export default class LoginForm extends Component {
     this.state = {
       username: '',
       password: '',
+      email: ''
     }
   }
 
@@ -17,10 +18,16 @@ export default class LoginForm extends Component {
     })
   }
 
-  handleSubmit = e => {
+  handleLogin = e => {
     e.preventDefault();
     let login = this.state;
     this.props.login(login);  
+  }
+
+  handleRegister = e => {
+    e.preventDefault();
+    let register = this.state;
+    this.props.register(register);  
   }
 
 
@@ -28,7 +35,7 @@ export default class LoginForm extends Component {
     return (
       <div className="loginForm">
       <h3>Log In below...</h3>
-         <Form onSubmit={this.handleSubmit}>
+         <Form>
                 <div>
                     <label htmlFor="">Username</label>
                     <Input
@@ -48,7 +55,19 @@ export default class LoginForm extends Component {
                     />
                 </div>
                 <div>
-                    <button type="submit">Signin</button>                   
+                    <label htmlFor="">Email</label>
+                    <Input
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.handleChange}
+                        type="text"
+                    />
+                </div>
+                <div>
+                    <button onClick = {this.handleRegister} type="submit">Register</button>                   
+                </div>
+                <div>
+                    <button onClick = {this.handleLogin} type="submit">Signin</button>                   
                 </div>
             </Form>
       </div>

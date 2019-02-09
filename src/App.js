@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import SimpleExample from './SimpleExample';
-import { fetchSchools, addSchool, login, fetchGeo } from './actions';
+import { fetchSchools, addSchool, login, fetchGeo, register } from './actions';
 import { connect } from 'react-redux';
 import AddSchool from './AddSchool';
 import LoginForm from './LoginForm'
@@ -13,12 +13,6 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchSchools();     
   }
-  
-  // componentWillReceiveProps(nextProps){
-  //   if(JSON.stringify(this.props.schools) !== JSON.stringify(nextProps.schools)){
-  //     this.props.fetchSchools();
-  //   }    
-  // }
   
 
   render() {
@@ -41,4 +35,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchSchools, addSchool, login, fetchGeo })(App);
+export default connect(mapStateToProps, { fetchSchools, addSchool, login, fetchGeo, register })(App);
